@@ -81,14 +81,14 @@ ADD CONSTRAINT df_DVT CHECK (DVT = N'KG' or DVT = N'Thùng' or DVT = N'Hộp' or
  VALUES ('SP2', N'Khẩu Trang', '2022-10-18', N'Thùng', 50, 2500, 0.10)
 
 INSERT INTO KhachHang (MaKH, TenKH, Diachi, Dienthoai)
-VALUES ('KH1', N'Thanh Lam', 'TP.HCM', '0945578442')
+VALUES ('KH1', N'Thanh Lam', N'TP.HCM', '0945578442')
 INSERT INTO KhachHang (MaKH, TenKH, Diachi, Dienthoai)
-VALUES ('KH2', N'Toàn Thắng', 'Tây Ninh', '0945566778')
+VALUES ('KH2', N'Toàn Thắng', N'Tây Ninh', '0945566778')
 
 INSERT INTO HoaDon (MaHD, Ngaylap, Ngaygiao, MaKH, Diengiai)
-VALUES ('HD0001', '2022-08-16', '2022-08-25', 'KH1', 'Sản phẩm bút chì loại 1')
+VALUES ('HD0001', '2022-08-16', '2022-08-25', 'KH1', N'Sản phẩm bút chì loại 1')
 INSERT INTO HoaDon (MaHD, Ngaylap, Ngaygiao, MaKH, Diengiai)
-VALUES ('HD0002', '2022-10-20', '2022-11-05', 'KH2', 'Sản phẩm khẩu trang kháng khuẩn')
+VALUES ('HD0002', '2022-10-20', '2022-11-05', 'KH2', N'Sản phẩm khẩu trang kháng khuẩn')
 
 INSERT INTO ChiTietHD (MaHD, Masp, Soluong)
 VALUES ('HD0001', 'SP1', 300)
