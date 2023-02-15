@@ -1,4 +1,4 @@
-﻿--Cau 1:
+--Cau 1:
 EXEC sp_addtype 'Mota', 'NVARCHAR(40)'
 EXEC sp_addtype 'IDKH', 'CHAR(10)', 'NOT NULL'
 EXEC sp_addtype 'DT', 'CHAR(12)'
@@ -75,7 +75,9 @@ ALTER TABLE SanPham
 ADD CONSTRAINT df_DVT CHECK (DVT = N'KG' or DVT = N'Thùng' or DVT = N'Hộp' or DVT = N'Cái')
  
  --Cau 9:
- INSERT INTO SanPham (Masp, Tensp, NgayNhap, DVT, SoluongTon, DongiaNhap)
- VALUES ('SP1', N'Bút chì', '2022-08-14', N'Cái', 200, 3000)
+ INSERT INTO SanPham (Masp, Tensp, NgayNhap, DVT, SoluongTon, DongiaNhap, TyLeHoaHong)
+ VALUES ('SP1', N'Bút chì', '2022-08-14', N'Cái', 200, 3000, 15)
 
- 
+INSERT INTO KhachHang (MaKH, TenKH, Diachi, Dienthoai)
+VALUES ('KH1', N'Thanh Lam', 'TP.HCM', '0945578442')
+
