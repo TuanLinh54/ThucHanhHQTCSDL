@@ -1,0 +1,4 @@
+CREATE LOGIN Nhanvien WITH PASSWORD = '222222';
+
+USE AdventureWorks2008R2;
+CREATE USER Nhanvien FOR LOGIN Nhanvien;

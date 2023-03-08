@@ -1,0 +1,63 @@
+﻿-----------------CAU 1------------------
+-----Cau b----------
+
+-- Phân quyền trưởng nhóm TN
+USE AdventureWorks2008R2;
+GRANT SELECT, UPDATE,DELETE ON Production.ProductInventory TO Truongnhom
+
+-- Phân quyền nhân viên NV
+USE AdventureWorks2008R2;
+GRANT SELECT,UPDATE, DELETE ON Production.ProductInventory TO Nhanvien;
+
+-- Phân quyền nhân viên QL
+USE AdventureWorks2008R2;
+GRANT SELECT ON Production.ProductInventory TO Quanly;
+
+-- Admin phải có quyền CONTROL trên tất cả các đối tượng trong cơ sở dữ liệu
+USE AdventureWorks2008R2;
+GRANT CONTROL TO [Admin];
+
+-----Cau c--------
+
+-- Đăng nhập với tài khoản của trưởng nhóm TN
+USE AdventureWorks2008R2;
+EXECUTE AS USER = 'TN';
+
+-- Sửa 1 dòng dữ liệu tùy ý 
+UPDATE Production.ProductInventory
+SET Quantity = 20
+WHERE ProductID = 1;
+
+-- Kết thúc quyền của trưởng nhóm TN
+REVERT;
+
+-- Đăng nhập với tài khoản của nhân viên NV
+USE AdventureWorks2008R2;
+EXECUTE AS USER = 'NV';
+
+-- Xóa 1 dòng dữ liệu tùy ý trong bảng Production.ProductInventory
+DELETE FROM Production.ProductInventory
+WHERE ProductID = 2;
+
+-- Kết thúc quyền của nhân viên NV
+REVERT;
+
+-- Đăng nhập với tài khoản của nhân viên QL
+USE AdventureWorks2008R2;
+EXECUTE AS USER = 'QL';
+
+-- Xem lại kết quả thực hiện của trưởng nhóm TN và nhân viên NV
+SELECT * FROM Production.ProductInventory;
+
+-- Kết thúc quyền của nhân viên QL
+REVERT;
+
+-----Cau d--------
+
+--Chỉ có trưởng nhóm TN và nhân viên QL có thể sửa được dữ liệu bảng Production.Product, vì họ được phân quyền SELECT và UPDATE trên bảng này--
+
+-----Cau e--------
+
+-- Thu hồi quyền của nhân viên NV
+USE AdventureWorks2008R2;
+REVOKE SELECT, DELETE ON Production.ProductInventory FROM NV
