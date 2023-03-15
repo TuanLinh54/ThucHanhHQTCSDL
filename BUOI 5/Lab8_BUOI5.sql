@@ -131,3 +131,59 @@ EXEC spTongGioLamViec 1, @KetQua OUTPUT;
 SELECT @KetQua AS TongGioLamViec;
 
 EXEC spTongGioLamViec @MaNV = '30'
+
+
+---------10----------
+CREATE PROCEDURE spTongTien
+    @MaNV INT
+AS
+BEGIN
+    DECLARE @Luong INT;
+    DECLARE @LuongDeAn INT;
+    DECLARE @TongTien INT;
+
+    SELECT @Luong = Luong FROM NHANVIEN WHERE MaNV = @MaNV;
+    SELECT @LuongDeAn = SUM(ThoiGian) * 100000 FROM PHANCONG WHERE MaNV = @MaNV;
+    SET @TongTien = @Luong + ISNULL(@LuongDeAn, 0);
+
+    PRINT 'Tổng tiền phải trả cho nhân viên ' + CAST(@MaNV AS NVARCHAR(10)) + ' là ' + CAST(@TongTien AS NVARCHAR(20)) + ' đồng';
+END
+EXEC spTongTien 333;
+
+
+--------11-----------
+SELECT @LuongDeAn = SUM(ThoiGian) * 100000 FROM PHANCONG WHERE MaNV = @MaNV;
+    SET @TongTien = @Luong + ISNULL(@LuongDeAn, 0);
+
+    PRINT 'Tổng tiền phải trả cho nhân viên ' + CAST(@MaNV AS NVARCHAR(10)) + ' là ' + CAST(@TongTien AS NVARCHAR(20)) + ' đồng';
+END
+EXEC spTongTien 333;
+
+---11.
+CREATE PROCEDURE spThemPhanCong
+    @MaDA INT,
+    @MaNV INT,
+    @ThoiGian INT
+AS
+BEGIN
+    IF @ThoiGian <= 0
+    BEGIN
+        PRINT 'Thời gian phải là một số dương';
+        RETURN;
+    END
+
+    IF NOT EXISTS (SELECT * FROM DEAN WHERE MaDA = @MaDA)
+    BEGIN
+        PRINT 'Mã đề án không tồn tại trong bảng DEAN';
+        RETURN;
+    END
+
+    IF NOT EXISTS (SELECT * FROM NHANVIEN WHERE MaNV = @MaNV)
+    BEGIN
+        PRINT 'Mã nhân viên không tồn tại trong bảng NHANVIEN';
+        RETURN;
+    END
+
+    INSERT INTO PHANCONG(MaDA, MaNV, ThoiGian) VALUES (@MaDA, @MaNV, @ThoiGian);
+END
+EXEC spThemPhanCong 1, 2, 3;
