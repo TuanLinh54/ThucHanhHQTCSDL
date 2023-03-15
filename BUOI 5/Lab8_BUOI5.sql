@@ -159,7 +159,6 @@ SELECT @LuongDeAn = SUM(ThoiGian) * 100000 FROM PHANCONG WHERE MaNV = @MaNV;
 END
 EXEC spTongTien 333;
 
----11.
 CREATE PROCEDURE spThemPhanCong
     @MaDA INT,
     @MaNV INT,
