@@ -63,7 +63,7 @@ AS
 BEGIN
     IF EXISTS (SELECT * FROM DEAN WHERE MaDA = @MaDeAn)
     BEGIN
-        RAISERROR ('Mã đề án đã tồn tại, đề nghị chọn mã đề án khác', 16, 1);
+        RAISERROR (N'Mã đề án đã tồn tại, đề nghị chọn mã đề án khác', 16, 1);
         RETURN;
     END
 
@@ -77,12 +77,26 @@ BEGIN
     VALUES (@MaDeAn, @TenDeAn, @DDiemDA)
 END
 
-EXEC spThemDA 1, 'Đề án A', 'Mô tả cho Đề án A', 1;
+EXEC spThemDA 1, N'Đề án A', N'Mô tả cho Đề án A', 1;
 
 
-EXEC spThemDA 1, 'Đề án B', 'Mô tả cho Đề án B', 1;
+EXEC spThemDA 1, N'Đề án B', N'Mô tả cho Đề án B', 1;
 
 
-EXEC spThemDA 25, 'Đề án B', 'Mô tả cho Đề án B', 25;
+EXEC spThemDA 25, N'Đề án B', N'Mô tả cho Đề án B', 25;
 
 ----------CAU 7---------
+CREATE PROCEDURE spXoaDeAn
+    @MaDA INT
+AS
+BEGIN
+    IF EXISTS (SELECT * FROM PHANCONG WHERE MaDA = @MaDA)
+    BEGIN
+        PRINT N'Không thể xóa đề án này vì nó đã được phân công';
+        RETURN;
+    END
+
+    DELETE FROM DEAN WHERE MaDA = @MaDA;
+END
+
+EXEC spXoaDeAn @MaDA = '20'
