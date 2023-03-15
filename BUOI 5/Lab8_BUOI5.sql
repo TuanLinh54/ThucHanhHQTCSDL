@@ -100,3 +100,33 @@ BEGIN
 END
 
 EXEC spXoaDeAn @MaDA = '20'
+
+----------CAU 8---------
+CREATE PROCEDURE spXoaDA
+    @MaDA INT
+AS
+BEGIN
+    IF EXISTS (SELECT * FROM PHANCONG WHERE MaDA = @MaDA)
+    BEGIN
+        DELETE FROM PHANCONG WHERE MaDA = @MaDA;
+    END
+
+    DELETE FROM DEAN WHERE MaDA = @MaDA;
+END
+
+EXEC spXoaDA @MaDA = '20'
+
+
+----------CAU 9---------
+CREATE PROCEDURE spTongGioLamViec
+    @MaNV INT,
+    @TongGioLamViec INT OUTPUT
+AS
+BEGIN
+    SELECT @TongGioLamViec = SUM(ThoiGian) FROM PHANCONG WHERE MaNV = @MaNV;
+END
+DECLARE @KetQua INT;
+EXEC spTongGioLamViec 1, @KetQua OUTPUT;
+SELECT @KetQua AS TongGioLamViec;
+
+EXEC spTongGioLamViec @MaNV = '30'
