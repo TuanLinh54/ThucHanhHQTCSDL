@@ -52,6 +52,7 @@ BEGIN
     INSERT INTO DEAN (MaDA, TenDA, DDiemDA)
     VALUES (@MaDeAn, @TenDeAn, @DDiemDA)
 END
+EXEC spThemDeAn @MaDeAn = '10', @TenDeAn = '', @DDiemDA = ''
 
 ----------CAU 6---------
 CREATE PROCEDURE spThemDA
